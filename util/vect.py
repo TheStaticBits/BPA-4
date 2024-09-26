@@ -33,4 +33,9 @@ class Vect:
 
     def circularClamp(self, radius=1):
         if self.getMagnitude() > radius:
-            self = self * (radius / self.getMagnitude())
+            if self.getMagnitude() == 0:
+                # Prevent division by zero
+                self = Vect(0, 0)
+            else:
+                self = self * (radius / self.getMagnitude())
+

@@ -15,7 +15,6 @@ pygame.display.set_caption("my game :]")
 
 running = True
 
-
 while running: # Everything happens here
     clock.tick(constants["FPS"])
     
@@ -38,8 +37,7 @@ while running: # Everything happens here
                 print("he he he haw")
             elif event.key == pygame.K_RETURN:
                 print("heee heeee heeeee hawwwwwww!")
-            
-                
+
     pygame.display.update() # END OF FRAME
 
 pygame.quit()
