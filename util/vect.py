@@ -4,6 +4,8 @@ class Vect:
         self.y = y
 
     def __add__(self, other):
+        # Overriding functions
+        # Vect(1,2) + Vect(3,4) returns Vect(4,6)
         return Vect(self.x + other.x, self.y + other.y)
 
     def __sub__(self, other):
@@ -17,6 +19,12 @@ class Vect:
     
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
+    
+    def getX(self):
+        return self.x
+    
+    def getY(self):
+        return self.y
     
     def getMagnitude(self):
         return (self.x**2 + self.y**2)**0.5
@@ -33,9 +41,9 @@ class Vect:
 
     def circularClamp(self, radius=1):
         if self.getMagnitude() > radius:
-            if self.getMagnitude() == 0:
-                # Prevent division by zero
-                self = Vect(0, 0)
-            else:
-                self = self * (radius / self.getMagnitude())
+            self.circularUnitize(radius)
+
+    def circularUnitize(self, radius=1):
+        if self.getMagnitude() != 0:
+            self = self * (radius / self.getMagnitude())
 
