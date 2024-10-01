@@ -1,9 +1,24 @@
 from util.vect import Vect
+import pygame
+
 class Entity:
-    def __init__(self, pos: Vect, size: Vect):
+    def __init__(self, pos: Vect, size: Vect, animData: dict | None = None):
         self.pos: Vect = pos
         self.size: Vect = size
         #self.animData: dict = animData
+        self.animMode: str = "basic"
+        if animData is not None:
+            pass
+            print("fix this [entity.py:Entity.__init__]")
+            #once youve decided the format for the animdata, implement it in two modes:
+            # 1. static / single image in spritesheet
+            # 2. animated / multiple images in spritesheet
+        
+    def draw(self, surface):
+        pass
+        if self.animMode == "basic":
+            #draw rectangle in place of entity
+            pygame.draw.rect(surface, (255, 0, 0), (self.pos.getX(), self.pos.getY(), self.size.getX(), self.size.getY()))
 
     def update(self):
         pass

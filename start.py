@@ -17,8 +17,8 @@ pygame.display.set_caption("my game :]")
 
 running = True
 
-box1 = Entity(Vect(200, 200), Vect(50, 50))
-box2 = Entity(Vect(100, 100), Vect(50, 50))
+box1 = Entity(Vect(200, 200), Vect(12, 12), None)
+box2 = Entity(Vect(100, 100), Vect(12, 12), None)
 
 while running: # Everything happens here
     clock.tick(constants["FPS"])
@@ -35,8 +35,9 @@ while running: # Everything happens here
         print("nuh uh")
 
     screen.fill((0, 0, 0))
-    pygame.draw.rect(screen, (255, 0, 0), (box1.getPos().getX(), box1.getPos().getY(), box1.getSize().getX(), box1.getSize().getY()))
-    pygame.draw.rect(screen, (0, 255, 0), (box2.getPos().getX(), box2.getPos().getY(), box2.getSize().getX(), box2.getSize().getY()))
+
+    box1.draw(screen)
+    box2.draw(screen)
     
     for event in pygame.event.get():
 
