@@ -1,5 +1,4 @@
 {
     "windowSize": [ 1200, 675 ],
-    "FPS": 120,
-    "tileSize": 16
+    "FPS": 120
 }

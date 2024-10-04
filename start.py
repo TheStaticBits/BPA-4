@@ -6,6 +6,9 @@ from util.vect import Vect
 with open("data/constants.json", "r") as file:
     constants: dict = json.load(file)
 
+with open("data/entityData.json", "r") as file:
+    entityData: dict = json.load(file)
+
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -19,6 +22,7 @@ running = True
 
 box1 = Entity(Vect(200, 200), Vect(12, 12), None)
 box2 = Entity(Vect(100, 100), Vect(12, 12), None)
+box3 = Entity(Vect(500, 300), Vect(12, 12), entityData["player"])
 
 while running: # Everything happens here
     clock.tick(constants["FPS"])
@@ -36,8 +40,9 @@ while running: # Everything happens here
 
     screen.fill((0, 0, 0))
 
-    box1.draw(screen)
-    box2.draw(screen)
+    box1.draw(screen, None)
+    box2.draw(screen, None)
+    box3.draw(screen, "idle")
     
     for event in pygame.event.get():
 

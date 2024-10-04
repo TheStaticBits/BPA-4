@@ -1,0 +1,15 @@
+{
+    "player": {
+        "size": [ 32, 32 ],
+        "animations": {
+            "idle": {
+                "path": "res/player/idle.png",
+                "frameCount": 1
+            },
+            "walk": {
+                "path": "res/player/walk.png",
+                "frameCount": 1
+            }
+        }
+    }
+}
