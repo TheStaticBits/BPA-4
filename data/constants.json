@@ -1,4 +1,6 @@
 {
     "windowSize": [ 1200, 675 ],
-    "FPS": 120
+    "FPS": 120,
+    "playerSize": [ 12, 12 ],
+    "PlayerSpeed": 20
 }

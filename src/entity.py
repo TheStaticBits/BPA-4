@@ -2,14 +2,14 @@ from src.util.vect import Vect
 import pygame
 
 class Entity:
-    def __init__(self, pos: Vect, size: Vect, entityData: dict | None = None):
+    def __init__(self, pos: Vect, size: Vect, animData: dict | None = None):
         self.pos: Vect = pos
         self.size: Vect = size
         #self.animData: dict = animData
         self.animMode: str = "basic"
-        if entityData is not None:
+        if animData is not None:
             self.animMode = "animated"
-            self.animationList = entityData["animations"]
+            self.animationList = animData["animations"]
             pass
             print("fix this [entity.py:Entity.__init__]")
             #once youve decided the format for the animdata, implement it in two modes:

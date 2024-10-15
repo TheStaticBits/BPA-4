@@ -44,6 +44,7 @@ class Vect:
             self.circularUnitize(radius)
 
     def circularUnitize(self, radius=1):
-        if self.getMagnitude() != 0:
-            self = self * (radius / self.getMagnitude())
+        magnitude = self.getMagnitude()
+        if magnitude != 0:
+            self = self * (radius / magnitude)
 

@@ -1,5 +1,6 @@
 from src.util.vect import Vect
 from src.entity import Entity
+
 class Tile(Entity):
     def __init__(self, pos: Vect, hitboxType: str, animData: dict):
         super().__init__(pos, Vect(16, 16), animData)
