@@ -1,4 +1,4 @@
-from util.vect import Vect
+from src.util.vect import Vect
 import pygame
 
 class Entity:
@@ -19,10 +19,10 @@ class Entity:
     def draw(self, surface, animation: str):
         pass
         if self.animMode == "basic":
-            #draw rectangle in place of entity
+            # Draw rectangle in place of entity
             pygame.draw.rect(surface, (255, 0, 0), (self.pos.getX(), self.pos.getY(), self.size.getX(), self.size.getY()))
         else:
-            #draw image in place of entity
+            # Draw image in place of entity
             imgToDraw = pygame.image.load(self.animationList[animation]["path"])
             surface.blit(imgToDraw, (self.pos.getX(), self.pos.getY()))
 

@@ -1,7 +1,7 @@
 import pygame
 import json
 from src.entity import Entity
-from util.vect import Vect
+from src.util.vect import Vect
 
 with open("data/constants.json", "r") as file:
     constants: dict = json.load(file)

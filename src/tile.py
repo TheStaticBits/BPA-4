@@ -1,4 +1,4 @@
-from util.vect import Vect
+from src.util.vect import Vect
 from src.entity import Entity
 class Tile(Entity):
     def __init__(self, pos: Vect, hitboxType: str, animData: dict):
