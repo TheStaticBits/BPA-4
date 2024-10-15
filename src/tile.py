@@ -9,9 +9,11 @@ class Tile(Entity):
         hitboxType = "damaging", "solid", "semisolid", "passable"
         """
 
+    # Gets the position omg
     def getPos(self):
         return self.pos
     
+    # Gets the hitbox type omg
     def getHitboxType(self):
         return self.hitboxType
     
