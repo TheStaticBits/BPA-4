@@ -5,6 +5,7 @@ class Player(Entity):
     def __init__(self, pos: Vect, animData: dict, constants: dict):
         super().__init__(pos, Vect(constants["playerSize"]), animData)
         self.velocity = Vect(0, 0)
+        self.onGround = False
 
     def getPos(self):
         return self.pos
@@ -32,7 +33,7 @@ class Player(Entity):
         leftRightInputs = inputs["right"] - inputs["left"]
         upDownInputs = inputs["down"] - inputs["up"]
 
-        self.velocity += Vect(leftRightInputs, 0) * deltaTime * 1000
+        self.velocity += Vect(leftRightInputs, 0) * deltaTime * 1600
 
         if leftRightInputs == 0:
             #velocity decay
@@ -44,11 +45,16 @@ class Player(Entity):
             if abs(self.velocity.x) < 0.1:
                 self.velocity.x = 0
 
+        if inputs["up"]:
+            if self.onGround:
+                self.velocity.y -= 21000 * deltaTime
+                self.onGround = False
+
         #check if velocity is above max velocity, if so, clamp
 
         self.velocity.clampX(170)
 
-        self.velocity.clampY(190)
+        self.velocity.clampY(900)
         #note: change 1 to max velocity from constants.json
 
         pass
@@ -56,3 +62,15 @@ class Player(Entity):
     def updatePosition(self, deltaTime: float):
         # DELTATIME
         self.pos += self.velocity * deltaTime
+        
+        #gravity
+        if not self.onGround:
+            self.velocity.y += 600 * deltaTime
+
+        #check if on ground if not already
+        if not self.onGround:
+            if self.pos.y >= 600:
+                self.pos.y = 600
+                self.onGround = True
+                self.velocity.y = 0
+            
