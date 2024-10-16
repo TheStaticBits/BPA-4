@@ -47,7 +47,7 @@ class Player(Entity):
 
         if inputs["up"]:
             if self.onGround:
-                self.velocity.y -= 21000 * deltaTime
+                self.velocity.y -= 28000 * deltaTime
                 self.onGround = False
 
         #check if velocity is above max velocity, if so, clamp
@@ -65,7 +65,7 @@ class Player(Entity):
         
         #gravity
         if not self.onGround:
-            self.velocity.y += 600 * deltaTime
+            self.velocity.y += 700 * deltaTime
 
         #check if on ground if not already
         if not self.onGround:
