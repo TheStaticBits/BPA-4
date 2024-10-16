@@ -12,6 +12,9 @@ class Player(Entity):
     def getHitboxType(self):
         return self.hitboxType
     
+    def draw(self, surface):
+        super().draw(surface, "idle")
+    
     def update(self, deltaTime: float, inputs: dict):
         # this function will call a bunch of other functions and be used by the game loop to access all these ufnctions
         self.checkTileCollision(deltaTime)
@@ -29,11 +32,23 @@ class Player(Entity):
         leftRightInputs = inputs["right"] - inputs["left"]
         upDownInputs = inputs["down"] - inputs["up"]
 
-        self.velocity += Vect(leftRightInputs, upDownInputs) * deltaTime
+        self.velocity += Vect(leftRightInputs, 0) * deltaTime * 1000
+
+        if leftRightInputs == 0:
+            #velocity decay
+            if abs(self.velocity.x) > abs(1300 * deltaTime * self.velocity.getSign().x):
+                self.velocity.x -= 1300 * deltaTime * self.velocity.getSign().x
+            else:
+                self.velocity.x *= 0.5
+            #if its basically zero, set to 0
+            if abs(self.velocity.x) < 0.1:
+                self.velocity.x = 0
 
         #check if velocity is above max velocity, if so, clamp
 
-        self.velocity.circularClamp(1)
+        self.velocity.clampX(170)
+
+        self.velocity.clampY(190)
         #note: change 1 to max velocity from constants.json
 
         pass

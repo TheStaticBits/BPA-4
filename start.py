@@ -35,6 +35,9 @@ inputs = {
     "down": False
 }
 
+print(Vect(1, -4).getSign().getY())
+print(Vect(3, 0).getSign().getY())
+
 deltatime = 0
 previousFrameTime: float = time.time() - 0.1
 
@@ -46,7 +49,7 @@ while running: # Everything happens here
     deltaTime = currentTime - previousFrameTime
     previousFrameTime = currentTime
 
-    print(1 / deltaTime) # FPS
+    #print(1 / deltaTime) # FPS
 
     #get mouse position
     mousePos: Vect = Vect(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
@@ -54,10 +57,10 @@ while running: # Everything happens here
     #set mouse pos to box2 pos
     box2.pos = mousePos
 
-    if(box1.collide(box2)):
-        print("collision")
-    else:
-        print("nuh uh")
+    #if(box1.collide(box2)):
+        #print("collision")
+    #else:
+        #print("nuh uh")
 
     screen.fill((0, 0, 0))
 
@@ -110,6 +113,8 @@ while running: # Everything happens here
 
     #actual gameplay calculation stuff happens here
     player.update(deltaTime, inputs)
+    player.draw(screen)
+
 
 
 

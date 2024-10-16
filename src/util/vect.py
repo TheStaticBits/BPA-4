@@ -48,6 +48,25 @@ class Vect:
         if self.y < -max:
             self.y = -max
 
+    def clampX(self, max):
+        if self.x > max:
+            self.x = max
+        if self.x < -max:
+            self.x = -max
+
+    def clampY(self, max):
+        if self.y > max:
+            self.y = max
+        if self.y < -max:
+            self.y = -max
+
+    #get sign of vector
+    def getSign(self):
+        return Vect(
+            1 if self.x > 0 else -1 if self.x < 0 else 0,
+            1 if self.y > 0 else -1 if self.y < 0 else 0
+        )
+
     def circularClamp(self, radius=1):
         if self.getMagnitude() > radius:
             self.circularUnitize(radius)
