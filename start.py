@@ -20,7 +20,7 @@ FPS: int = 60 # relocate to a constants file soon
 screen = pygame.display.set_mode(constants["windowSize"], pygame.RESIZABLE)
 pygame.display.set_caption("my game :]")
 
-player = Player((0,0), animData["player"], constants["player"])
+player = Player(Vect(), animData["player"], constants)
 
 running = True
 
@@ -36,7 +36,7 @@ inputs = {
 }
 
 deltatime = 0
-previousFrameTime: float = time.time()
+previousFrameTime: float = time.time() - 0.1
 
 while running: # Everything happens here
     clock.tick(constants["FPS"])

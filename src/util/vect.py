@@ -1,7 +1,16 @@
 class Vect:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+    def __init__(self, x=None, y=None):
+        if (x is None and y is None):
+            self.x = 0
+            self.y = 0
+        
+        elif (y is None):
+            self.x = x
+            self.y = x
+        
+        else:
+            self.x = x
+            self.y = y
 
     def __add__(self, other):
         # Overriding functions

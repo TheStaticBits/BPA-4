@@ -40,4 +40,4 @@ class Player(Entity):
 
     def updatePosition(self, deltaTime: float):
         # DELTATIME
-        self.pos += self.velocity 
+        self.pos += self.velocity * deltaTime
