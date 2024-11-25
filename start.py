@@ -4,6 +4,7 @@ import time
 from src.entity import Entity
 from src.util.vect import Vect
 from src.player import Player
+from src.tile import Tile
 
 with open("data/constants.json", "r") as file:
     constants: dict = json.load(file)
@@ -40,6 +41,8 @@ print(Vect(3, 0).getSign().getY())
 
 deltatime = 0
 previousFrameTime: float = time.time() - 0.1
+
+Tile.getTileData()
 
 while running: # Everything happens here
     clock.tick(constants["FPS"])
