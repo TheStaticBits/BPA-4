@@ -34,6 +34,9 @@ class Entity:
     
     def getPos(self):
         return self.pos
+    
+    def getCurrentFrame(self):
+        return 
 
     def collide(self, other):
         if (other.getPos().x < self.getPos().x + self.getSize().x 

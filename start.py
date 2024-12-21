@@ -5,6 +5,7 @@ from src.entity import Entity
 from src.util.vect import Vect
 from src.player import Player
 from src.tile import Tile
+from src.tilemanager import TileManager
 
 with open("data/constants.json", "r") as file:
     constants: dict = json.load(file)
@@ -64,6 +65,8 @@ while running: # Everything happens here
         #print("collision")
     #else:
         #print("nuh uh")
+
+    levelThing = TileManager
 
     screen.fill((0, 0, 0))
 
