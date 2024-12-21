@@ -13,15 +13,21 @@ class Player(Entity):
     def getHitboxType(self):
         return self.hitboxType
     
+    def getDisplayAnimation(self):
+        if self.velocity.getMagnitude() > 0:
+            return "walk"
+        else:
+            return "idle"
+    
     def draw(self, surface):
-        super().draw(surface, "idle")
+        super().draw(surface, self.getDisplayAnimation())
     
     def update(self, deltaTime: float, inputs: dict):
         # this function will call a bunch of other functions and be used by the game loop to access all these ufnctions
         self.checkTileCollision(deltaTime)
         self.handleInput(deltaTime, inputs)
         self.updatePosition(deltaTime)
-        pass
+        super().update(deltaTime, self.getDisplayAnimation())
 
     def checkTileCollision(self, deltaTime: float):
         pass

@@ -1,14 +1,16 @@
 {
     "player": {
-        "size": [ 32, 32 ],
+        "size": [ 64, 64 ],
         "animations": {
             "idle": {
                 "path": "res/player/idle.png",
-                "frameCount": 1
+                "frameCount": 1,
+                "delay": 0
             },
             "walk": {
                 "path": "res/player/walk.png",
-                "frameCount": 1
+                "frameCount": 8,
+                "delay": 0.1
             }
         }
     }

@@ -2,7 +2,7 @@
     "windowSize": [ 1200, 675 ],
     "FPS": 120,
     "tileSize": 16,
-    "playerSize": [ 12, 12 ],
+    "playerSize": [ 76, 53 ],
     "PlayerSpeed": 20,
     "physics": {
         "gravity": 0,
