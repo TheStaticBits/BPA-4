@@ -12,11 +12,9 @@ class Entity:
         if animData is not None:
             self.animMode = "animated"
             self.animationList = animData["animations"]
-            pass
-            print("fix this [entity.py:Entity.__init__]")
-            #once youve decided the format for the animdata, implement it in two modes:
-            # 1. static / single image in spritesheet
-            # 2. animated / multiple images in spritesheet
+            self.preloadedSpritesheets = {}
+            for key, animation in self.animationList.items():
+                self.preloadedSpritesheets[key] = pygame.image.load(animation["path"]).convert_alpha()
         
     def draw(self, surface, animation: str):
         pass
@@ -27,14 +25,12 @@ class Entity:
             # cut up spritesheet into n chunks, where n is frame count
             # draw each chunk in place of entity
             if self.animationList[animation]["frameCount"] > 1:
-                spritesheet = pygame.image.load(self.animationList[animation]["path"]).convert_alpha()
                 boundingRect = pygame.Rect(self.currentFrame * self.size.getX(), 0, self.size.getX(), self.size.getY())
-                spritePortion = spritesheet.subsurface(boundingRect)
+                spritePortion = self.preloadedSpritesheets[animation].subsurface(boundingRect)
                 surface.blit(spritePortion, (self.pos.getX(), self.pos.getY()))
             else:
-                spritesheet = pygame.image.load(self.animationList[animation]["path"]).convert_alpha()
-                surface.blit(spritesheet, (self.pos.getX(), self.pos.getY()))
-
+                surface.blit(self.preloadedSpritesheets[animation], (self.pos.getX(), self.pos.getY()))
+                
     def update(self, deltatime: float, animation: str):
         # change current frame based on animation mode
         if self.animMode == "animated":
