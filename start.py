@@ -37,8 +37,8 @@ inputs = {
     "down": False
 }
 
-print(Vect(1, -4).getSign().getY())
-print(Vect(3, 0).getSign().getY())
+#print(Vect(1, -4).getSign().getY())
+#print(Vect(3, 0).getSign().getY())
 
 deltatime = 0
 previousFrameTime: float = time.time() - 0.1
