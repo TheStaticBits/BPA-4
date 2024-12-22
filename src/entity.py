@@ -8,13 +8,14 @@ class Entity:
         #self.animData: dict = animData
         self.animMode: str = "basic"
         self.currentFrame: int = currentFrame
-        self.remainingFrameDelay = 0.01
+        self.remainingFrameDelay = 0
         if animData is not None:
             self.animMode = "animated"
             self.animationList = animData["animations"]
             self.preloadedSpritesheets = {}
             for key, animation in self.animationList.items():
                 self.preloadedSpritesheets[key] = pygame.image.load(animation["path"]).convert_alpha()
+            self.remainingFrameDelay = self.animationList["idle"]["delay"]
         
     def draw(self, surface, animation: str):
         pass
@@ -30,7 +31,7 @@ class Entity:
                 surface.blit(spritePortion, (self.pos.getX(), self.pos.getY()))
             else:
                 surface.blit(self.preloadedSpritesheets[animation], (self.pos.getX(), self.pos.getY()))
-                
+
     def update(self, deltatime: float, animation: str):
         # change current frame based on animation mode
         if self.animMode == "animated":
