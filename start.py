@@ -16,7 +16,6 @@ with open("data/animData.json", "r") as file:
 pygame.init()
 
 clock = pygame.time.Clock()
-FPS: int = 60 # relocate to a constants file soon
 
 # Define screen size as 1200x675 (16:9 ratio)
 screen = pygame.display.set_mode(constants["windowSize"], pygame.RESIZABLE)
@@ -53,7 +52,7 @@ while running: # Everything happens here
     deltaTime = currentTime - previousFrameTime
     previousFrameTime = currentTime
 
-    #print(1 / deltaTime) # FPS
+    print(1 / deltaTime) # FPS
 
     #get mouse position
     mousePos: Vect = Vect(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
