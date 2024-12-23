@@ -26,7 +26,8 @@ class Entity:
             # cut up spritesheet into n chunks, where n is frame count
             # draw each chunk in place of entity
             if self.animationList[animation]["frameCount"] > 1:
-                boundingRect = pygame.Rect(self.currentFrame * self.size.getX(), 0, self.size.getX(), self.size.getY())
+                frameWidth = self.preloadedSpritesheets[animation].get_width() // self.animationList[animation]["frameCount"]
+                boundingRect = pygame.Rect(self.currentFrame * frameWidth, 0, frameWidth, self.preloadedSpritesheets[animation].get_height())
                 spritePortion = self.preloadedSpritesheets[animation].subsurface(boundingRect)
                 surface.blit(spritePortion, (self.pos.getX(), self.pos.getY()))
             else:
