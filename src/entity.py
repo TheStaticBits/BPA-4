@@ -18,13 +18,12 @@ class Entity:
             self.remainingFrameDelay = self.animationList["idle"]["delay"]
         
     def draw(self, surface, animation: str):
-        pass
         if self.animMode == "basic":
             # Draw rectangle in place of entity
             pygame.draw.rect(surface, (255, 0, 0), (self.pos.getX(), self.pos.getY(), self.size.getX(), self.size.getY()))
         else:
-            # cut up spritesheet into n chunks, where n is frame count
-            # draw each chunk in place of entity
+            # Cut up spritesheet into n chunks, where n is frame count
+            # Draw each chunk in place of entity
             if self.animationList[animation]["frameCount"] > 1:
                 frameWidth = self.preloadedSpritesheets[animation].get_width() // self.animationList[animation]["frameCount"]
                 boundingRect = pygame.Rect(self.currentFrame * frameWidth, 0, frameWidth, self.preloadedSpritesheets[animation].get_height())
@@ -34,7 +33,7 @@ class Entity:
                 surface.blit(self.preloadedSpritesheets[animation], (self.pos.getX(), self.pos.getY()))
 
     def update(self, deltatime: float, animation: str):
-        # change current frame based on animation mode
+        # Change current frame based on animation mode
         if self.animMode == "animated":
             self.remainingFrameDelay -= deltatime
             if self.remainingFrameDelay <= 0:
