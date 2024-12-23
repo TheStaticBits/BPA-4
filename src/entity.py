@@ -1,4 +1,5 @@
 from src.util.vect import Vect
+import src.util.util as util
 import pygame
 
 class Entity:
@@ -14,7 +15,7 @@ class Entity:
             self.animationList = animData["animations"]
             self.preloadedSpritesheets = {}
             for key, animation in self.animationList.items():
-                self.preloadedSpritesheets[key] = pygame.image.load(animation["path"]).convert_alpha()
+                self.preloadedSpritesheets[key] = util.getImage(animation["path"])
             self.remainingFrameDelay = self.animationList["idle"]["delay"]
         
     def draw(self, surface, animation: str):
