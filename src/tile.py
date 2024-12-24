@@ -10,10 +10,12 @@ class Tile(Entity):
 
     def __init__(self, pos: Vect, tileChar: str):
         super().__init__(pos, Vect(16, 16), self.TILE_DATA[tileChar]["animData"])
-        self.hitboxType = self.TILE_DATA[tileChar]["hitboxType"]
+        self.hitboxType: str = self.TILE_DATA[tileChar]["hitboxType"]
         """
         hitboxType = "damaging", "solid", "semisolid", "passable"
         """
+
+        self.isBreakable: bool = self.TILE_DATA[tileChar]["isBreakable"]
 
     # Gets the position omg
     def getPos(self):

@@ -1,6 +1,7 @@
 {
     "a": {
         "hitboxType": "solid",
+        "isBreakable": false,
         "animData": {
             
         }
