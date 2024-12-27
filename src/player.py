@@ -29,45 +29,45 @@ class Player(Entity):
         self.checkTileCollision(deltaTime, tileManager, "x")
         self.updatePosition(deltaTime, "y")
         self.checkTileCollision(deltaTime, tileManager, "y")
+        print(self.size)
         super().update(deltaTime, self.getDisplayAnimation())
 
     def checkTileCollision(self, deltaTime: float, tileManager: TileManager, axis: str):
         for tile in tileManager.getTileList():
             if self.collide(tile) and tile.getHitboxType() == "solid":
-                #warp player to side of tile dependent on their velocity in a given direction
+                # Warp player to side of tile dependent on their velocity in a given direction
                 if self.velocity.getSign().get(axis) > 0:
                     self.pos.set(axis, tile.getPos().get(axis) - self.getSize().get(axis))
                 else:
                     self.pos.set(axis, tile.getPos().get(axis) + tile.getSize().get(axis))
+                self.velocity.set(axis, 0)
 
     def handleInput(self, deltaTime: float, inputs: dict):
-        #get inputs
-
-        #update velocity
         leftRightInputs = inputs["right"] - inputs["left"]
         upDownInputs = inputs["down"] - inputs["up"]
 
         self.velocity += Vect(leftRightInputs, 0) * deltaTime * 1600
 
         if leftRightInputs == 0:
-            #velocity decay
+            # Velocity decay
             if abs(self.velocity.x) > abs(1300 * deltaTime * self.velocity.getSign().x):
                 self.velocity.x -= 1300 * deltaTime * self.velocity.getSign().x
             else:
                 self.velocity.x *= 0.5
+
             #if its basically zero, set to 0
             if abs(self.velocity.x) < 0.1:
                 self.velocity.x = 0
 
-        self.velocity.y = upDownInputs * deltaTime * 16000
-        #velocity decay
+        self.velocity.y += upDownInputs * deltaTime * 1600
+        # Swimming up/down
 
 
         #check if velocity is above max velocity, if so, clamp
 
         self.velocity.clampX(170)
 
-        self.velocity.clampY(900)
+        self.velocity.clampY(135)
         #note: change 1 to max velocity from constants.json
 
     def updatePosition(self, deltaTime: float, axis):
