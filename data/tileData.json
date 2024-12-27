@@ -1,9 +1,27 @@
 {
-    "a": {
+    "-": {
         "hitboxType": "solid",
         "isBreakable": false,
-        "animData": {
-            
-        }
+        "isStatic": true,
+        "animations": { "default": {
+            "path": "res/tiles/oceanFloorTileTop.png",
+            "frameCount": 1,
+            "delay": 0
+        } }
+    },
+
+    "_": {
+        "hitboxType": "solid",
+        "isBreakable": false,
+        "isStatic": true,
+        "animations": { "default": {
+            "path": "res/tiles/oceanFloorTileBottom.png",
+            "frameCount": 1,
+            "delay": 0
+        } }
+    },
+
+    " ":{
+        "isStatic": false
     }
 }

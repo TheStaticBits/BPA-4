@@ -21,13 +21,13 @@ clock = pygame.time.Clock()
 screen = pygame.display.set_mode(constants["windowSize"], pygame.RESIZABLE)
 pygame.display.set_caption("my game :]")
 
-player = Player(Vect(), animData["player"], constants)
+player = Player(Vect(), animData["player"]["animations"], constants)
 
 running = True
 
-box1 = Entity(Vect(200, 200), Vect(12, 12), None)
-box2 = Entity(Vect(100, 100), Vect(12, 12), None)
-box3 = Entity(Vect(500, 300), Vect(12, 12), animData["player"])
+#box1 = Entity(Vect(200, 200), Vect(12, 12), None)
+#box2 = Entity(Vect(100, 100), Vect(12, 12), None)
+#box3 = Entity(Vect(500, 300), Vect(12, 12), animData["player"]["animations"])
 
 inputs = {
     "left": False,
@@ -42,7 +42,8 @@ inputs = {
 deltatime = 0
 previousFrameTime: float = time.time() - 0.1
 
-Tile.getTileData()
+TileManager.getTileData()
+levelThing = TileManager("data/data.txt", constants)
 
 while running: # Everything happens here
     clock.tick(constants["FPS"])
@@ -58,20 +59,19 @@ while running: # Everything happens here
     mousePos: Vect = Vect(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
 
     #set mouse pos to box2 pos
-    box2.pos = mousePos
+    #box2.pos = mousePos
 
     #if(box1.collide(box2)):
         #print("collision")
     #else:
         #print("nuh uh")
 
-    levelThing = TileManager
 
     screen.fill((0, 0, 0))
 
-    box1.draw(screen, None)
-    box2.draw(screen, None)
-    box3.draw(screen, "idle")
+    #box1.draw(screen, None)
+    #box2.draw(screen, None)
+    #box3.draw(screen, "idle")
     
     for event in pygame.event.get():
 
@@ -117,8 +117,10 @@ while running: # Everything happens here
 
 
     #actual gameplay calculation stuff happens here
-    player.update(deltaTime, inputs)
+    player.update(deltaTime, inputs, levelThing)
     player.draw(screen)
+
+    levelThing.drawTiles(screen)
 
 
 

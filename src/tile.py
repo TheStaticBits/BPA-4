@@ -1,21 +1,15 @@
 from src.util.vect import Vect
 from src.entity import Entity
-import json
 
 class Tile(Entity):
-    @classmethod
-    def getTileData(cls):
-        with open("data/tileData.json", "r") as f:
-            cls.TILE_DATA = json.load(f)
-
-    def __init__(self, pos: Vect, tileChar: str):
-        super().__init__(pos, Vect(16, 16), self.TILE_DATA[tileChar]["animData"])
-        self.hitboxType: str = self.TILE_DATA[tileChar]["hitboxType"]
+    def __init__(self, pos: Vect, tileChar: str, TILE_DATA: dict):
+        super().__init__(pos, Vect(16, 16), "default", TILE_DATA[tileChar]["animations"])
+        self.hitboxType: str = TILE_DATA[tileChar]["hitboxType"]
         """
         hitboxType = "damaging", "solid", "semisolid", "passable"
         """
 
-        self.isBreakable: bool = self.TILE_DATA[tileChar]["isBreakable"]
+        self.isBreakable: bool = TILE_DATA[tileChar]["isBreakable"]
 
     # Gets the position omg
     def getPos(self):

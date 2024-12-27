@@ -1,7 +1,7 @@
 {
     "windowSize": [ 1200, 720 ],
     "FPS": 120,
-    "tileSize": 16,
+    "tileSize": 24,
     "playerSize": [ 76, 53 ],
     "PlayerSpeed": 20,
     "physics": {
