@@ -40,6 +40,15 @@ class Vect:
     def getY(self):
         return self.y
     
+    def get(self, axis):
+        return self.x if axis == "x" else self.y
+    
+    def set(self, axis, value):
+        if axis == "x":
+            self.x = value
+        else:
+            self.y = value
+    
     def getMagnitude(self):
         return (self.x**2 + self.y**2)**0.5
     

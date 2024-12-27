@@ -3,7 +3,7 @@ import src.util.util as util
 import pygame
 
 class Entity:
-    def __init__(self, pos: Vect, size: Vect, animData: dict | None = None, currentFrame: int = 0):
+    def __init__(self, pos: Vect, size: Vect, defaultAnim: str, animData: dict | None = None, currentFrame: int = 0):
         self.pos: Vect = pos
         self.size: Vect = size
         #self.animData: dict = animData
@@ -12,34 +12,38 @@ class Entity:
         self.remainingFrameDelay = 0
         if animData is not None:
             self.animMode = "animated"
-            self.animationList = animData["animations"]
+            self.animationList = animData
             self.preloadedSpritesheets = {}
             for key, animation in self.animationList.items():
                 self.preloadedSpritesheets[key] = util.getImage(animation["path"])
-            self.remainingFrameDelay = self.animationList["idle"]["delay"]
+            self.remainingFrameDelay = self.animationList[defaultAnim]["delay"]
+            self.activeAnimation = defaultAnim
         
-    def draw(self, surface, animation: str):
+    def draw(self, surface, activeAnimation: str):
         if self.animMode == "basic":
             # Draw rectangle in place of entity
             pygame.draw.rect(surface, (255, 0, 0), (self.pos.getX(), self.pos.getY(), self.size.getX(), self.size.getY()))
         else:
             # Cut up spritesheet into n chunks, where n is frame count
             # Draw each chunk in place of entity
-            if self.animationList[animation]["frameCount"] > 1:
-                frameWidth = self.preloadedSpritesheets[animation].get_width() // self.animationList[animation]["frameCount"]
-                boundingRect = pygame.Rect(self.currentFrame * frameWidth, 0, frameWidth, self.preloadedSpritesheets[animation].get_height())
-                spritePortion = self.preloadedSpritesheets[animation].subsurface(boundingRect)
+            if self.animationList[activeAnimation]["frameCount"] > 1:
+                frameWidth = self.preloadedSpritesheets[activeAnimation].get_width() // self.animationList[activeAnimation]["frameCount"]
+                boundingRect = pygame.Rect(self.currentFrame * frameWidth, 0, frameWidth, self.preloadedSpritesheets[activeAnimation].get_height())
+                spritePortion = self.preloadedSpritesheets[activeAnimation].subsurface(boundingRect)
                 surface.blit(spritePortion, (self.pos.getX(), self.pos.getY()))
             else:
-                surface.blit(self.preloadedSpritesheets[animation], (self.pos.getX(), self.pos.getY()))
+                surface.blit(self.preloadedSpritesheets[activeAnimation], (self.pos.getX(), self.pos.getY()))
 
-    def update(self, deltatime: float, animation: str):
+    def update(self, deltatime: float, activeAnimation: str):
         # Change current frame based on animation mode
-        if self.animMode == "animated":
+        if self.animMode == "animated" and self.animationList[activeAnimation]["delay"] > 0:
             self.remainingFrameDelay -= deltatime
             if self.remainingFrameDelay <= 0:
-                self.currentFrame = (self.currentFrame + 1) % (self.animationList[animation]["frameCount"])
-                self.remainingFrameDelay = self.animationList[animation]["delay"]
+                self.currentFrame = (self.currentFrame + 1) % (self.animationList[activeAnimation]["frameCount"])
+                self.remainingFrameDelay = self.animationList[activeAnimation]["delay"]
+
+    def changeActiveAnimation(self, newAnimation: str):
+        self.activeAnimation = newAnimation
 
     def getSize(self):
         return self.size

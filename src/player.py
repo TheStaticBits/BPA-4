@@ -1,11 +1,11 @@
 from src.util.vect import Vect
 from src.entity import Entity
+from src.tilemanager import TileManager
 
 class Player(Entity):
     def __init__(self, pos: Vect, animData: dict, constants: dict):
-        super().__init__(pos, Vect(constants["playerSize"]), animData)
+        super().__init__(pos, Vect(constants["playerSize"]), "idle", animData)
         self.velocity = Vect(0, 0)
-        self.onGround = False
 
     def getPos(self):
         return self.pos
@@ -22,15 +22,23 @@ class Player(Entity):
     def draw(self, surface):
         super().draw(surface, self.getDisplayAnimation())
     
-    def update(self, deltaTime: float, inputs: dict):
-        # this function will call a bunch of other functions and be used by the game loop to access all these ufnctions
-        self.checkTileCollision(deltaTime)
+    def update(self, deltaTime: float, inputs: dict, tileManager: TileManager):
+        # this function will call a bunch of other functions and be used by the game loop to access all these functions
         self.handleInput(deltaTime, inputs)
-        self.updatePosition(deltaTime)
+        self.updatePosition(deltaTime, "x")
+        self.checkTileCollision(deltaTime, tileManager, "x")
+        self.updatePosition(deltaTime, "y")
+        self.checkTileCollision(deltaTime, tileManager, "y")
         super().update(deltaTime, self.getDisplayAnimation())
 
-    def checkTileCollision(self, deltaTime: float):
-        pass
+    def checkTileCollision(self, deltaTime: float, tileManager: TileManager, axis: str):
+        for tile in tileManager.getTileList():
+            if self.collide(tile) and tile.getHitboxType() == "solid":
+                #warp player to side of tile dependent on their velocity in a given direction
+                if self.velocity.getSign().get(axis) > 0:
+                    self.pos.set(axis, tile.getPos().get(axis) - self.getSize().get(axis))
+                else:
+                    self.pos.set(axis, tile.getPos().get(axis) + tile.getSize().get(axis))
 
     def handleInput(self, deltaTime: float, inputs: dict):
         #get inputs
@@ -51,10 +59,9 @@ class Player(Entity):
             if abs(self.velocity.x) < 0.1:
                 self.velocity.x = 0
 
-        if inputs["up"]:
-            if self.onGround:
-                self.velocity.y -= 28000 * deltaTime
-                self.onGround = False
+        self.velocity.y = upDownInputs * deltaTime * 16000
+        #velocity decay
+
 
         #check if velocity is above max velocity, if so, clamp
 
@@ -63,20 +70,15 @@ class Player(Entity):
         self.velocity.clampY(900)
         #note: change 1 to max velocity from constants.json
 
-        pass
-
-    def updatePosition(self, deltaTime: float):
+    def updatePosition(self, deltaTime: float, axis):
         # DELTATIME
-        self.pos += self.velocity * deltaTime
+        self.pos.set(axis, self.pos.get(axis) + self.velocity.get(axis) * deltaTime)
         
-        #gravity
-        if not self.onGround:
+        if axis == "y":
+            #gravity only exists in the y direction, obviously
             self.velocity.y += 700 * deltaTime
 
-        #check if on ground if not already
-        if not self.onGround:
+            #check if on ground if not already
             if self.pos.y >= 600:
                 self.pos.y = 600
-                self.onGround = True
                 self.velocity.y = 0
-            
